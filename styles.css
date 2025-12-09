@@ -366,3 +366,12 @@ body {
     }
 
 @view-transition { navigation: auto; }
+
+/* FORCE DEBUG - sementara untuk memastikan tombol selalu terlihat */
+#scrollToTopBtn {
+   display: block !important;
+   opacity: 1 !important;
+   background: red !important;
+   z-index: 999999 !important;
+}
+
