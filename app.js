@@ -728,49 +728,48 @@
       // Scroll to Top Button (FIXED)
       // ============================================
         // Show/hide scroll button based on scroll position
-    // ============================================
-// UNIVERSAL SCROLL-TO-TOP (100% WORKING)
+// ============================================
+// SCROLL TO TOP FIX UNTUK WEBSITE SPA ANDA
 // ============================================
 
-function initScrollToTop() {
-  const scrollBtn = document.getElementById('scrollToTopBtn');
+function initScrollToTopSPA() {
+  const scrollBtn = document.getElementById("scrollToTopBtn");
   if (!scrollBtn) return;
 
-  let lastScrollContainer = null;
+  function getActivePage() {
+    return document.querySelector(".page.active");
+  }
 
-  function checkAllScrollContainers() {
-    const containers = document.querySelectorAll('*');
+  // DETEKSI SCROLL PADA .page.active
+  function updateScrollButton() {
+    const activePage = getActivePage();
+    if (!activePage) return;
 
-    containers.forEach(el => {
-      const canScroll = el.scrollHeight > el.clientHeight;
+    const scrollY = activePage.scrollTop;
 
-      if (canScroll && el.scrollTop > 300) {
-        scrollBtn.classList.add('visible');
-        lastScrollContainer = el;
-      } 
-    });
-
-    // Jika tidak ada yg scroll
-    if (!lastScrollContainer || lastScrollContainer.scrollTop <= 300) {
-      scrollBtn.classList.remove('visible');
+    if (scrollY > 300) {
+      scrollBtn.classList.add("visible");
+    } else {
+      scrollBtn.classList.remove("visible");
     }
   }
 
-  // Pasang event scroll untuk SEMUA elemen
-  const all = document.querySelectorAll('*');
-  all.forEach(el => {
-    el.addEventListener('scroll', checkAllScrollContainers, { passive: true });
+  // Pasang event scroll ke semua .page
+  document.querySelectorAll(".page").forEach(page => {
+    page.addEventListener("scroll", updateScrollButton, { passive: true });
   });
 
-  // Klik tombol → scroll container aktif
-  scrollBtn.addEventListener('click', () => {
-    if (lastScrollContainer) {
-      lastScrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+  // Scroll ke atas halaman aktif
+  scrollBtn.addEventListener("click", () => {
+    const activePage = getActivePage();
+    if (!activePage) return;
+
+    activePage.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
 
-initScrollToTop();
+initScrollToTopSPA();
+
 
     
       // ============================================
