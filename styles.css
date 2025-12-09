@@ -213,7 +213,7 @@ body {
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
     
-    #scrollToTopBtn {
+    .scrollToTopBtn {
       position: fixed;
       bottom: 100px;
       right: 30px;
@@ -231,12 +231,12 @@ body {
       opacity: 0;
     }
     
-    #scrollToTopBtn.visible {
+    .scrollToTopBtn.visible {
       display: flex;
       opacity: 1;
     }
     
-    #scrollToTopBtn:hover {
+    .scrollToTopBtn:hover {
       transform: scale(1.1);
     }
     
