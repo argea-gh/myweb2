@@ -213,7 +213,7 @@ body {
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
     
-    .scroll-to-top {
+    #scrollToTopBtn {
       position: fixed;
       bottom: 100px;
       right: 30px;
@@ -226,17 +226,17 @@ body {
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      z-index: 999;
+      z-index: 9999;
       transition: transform 0.3s ease, opacity 0.3s ease;
       opacity: 0;
     }
     
-    .scroll-to-top.visible {
+    #scrollToTopBtn.visible {
       display: flex;
       opacity: 1;
     }
     
-    .scroll-to-top:hover {
+    #scrollToTopBtn:hover {
       transform: scale(1.1);
     }
     
