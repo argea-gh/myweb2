@@ -727,27 +727,25 @@
       // ============================================
       // Scroll to Top Button (FIXED)
       // ============================================
+        // Show/hide scroll button based on scroll position
+    window.addEventListener('scroll', () => {
+      const scrollBtn = document.getElementById('scrollToTopBtn');
+      if (!scrollBtn) return;
 
-// Show/hide scroll button based on scroll position
-window.addEventListener('scroll', () => {
-  const scrollBtn = document.getElementById('scrollToTopBtn');
-  if (!scrollBtn) return;
+      const scrollY = document.documentElement.scrollTop || document.body.scrollTop;
 
-  const scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollY > 300) {
+        scrollBtn.classList.add('visible');
+      } else {
+        scrollBtn.classList.remove('visible');
+      }
+    });
 
-  if (scrollY > 300) {
-    scrollBtn.classList.add('visible');
-  } else {
-    scrollBtn.classList.remove('visible');
-  }
-});
-
-// Scroll to top when button clicked
-document.getElementById('scrollToTopBtn').addEventListener('click', () => {
-  document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
-  document.body.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
+    // Scroll to top when button clicked
+    document.getElementById('scrollToTopBtn').addEventListener('click', () => {
+    document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+    document.body.scrollTo({ top: 0, behavior: 'smooth' });
+    });
      
       // ============================================
       // Contact Form Submission
