@@ -728,25 +728,36 @@
       // Scroll to Top Button (FIXED)
       // ============================================
         // Show/hide scroll button based on scroll position
-    window.addEventListener('scroll', () => {
-      const scrollBtn = document.getElementById('scrollToTopBtn');
-      if (!scrollBtn) return;
+function setupScrollToTop() {
+  const scrollBtn = document.getElementById('scrollToTopBtn');
+  if (!scrollBtn) return;
 
-      const scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+  function checkScroll(container) {
+    const scrollY = container.scrollTop;
 
-      if (scrollY > 300) {
-        scrollBtn.classList.add('visible');
-      } else {
-        scrollBtn.classList.remove('visible');
-      }
-    });
+    if (scrollY > 300) {
+      scrollBtn.classList.add('visible');
+    } else {
+      scrollBtn.classList.remove('visible');
+    }
+  }
 
-    // Scroll to top when button clicked
-    document.getElementById('scrollToTopBtn').addEventListener('click', () => {
-    document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
-    document.body.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-     
+  // Pantau scroll pada setiap .page
+  document.querySelectorAll('.page').forEach(page => {
+    page.addEventListener('scroll', () => checkScroll(page));
+  });
+
+  // Saat tombol diklik → scroll container aktif
+  scrollBtn.addEventListener('click', () => {
+    const activePage = document.querySelector('.page.active');
+    if (activePage) {
+      activePage.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+}
+
+setupScrollToTop();
+    
       // ============================================
       // Contact Form Submission
       // ============================================
