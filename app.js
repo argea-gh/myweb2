@@ -725,24 +725,26 @@
       document.getElementById('checkoutWhatsApp').addEventListener('click', checkoutWhatsApp);
       
       // ============================================
-      // Scroll to Top Button
+      // Scroll to Top Button (FIXED)
       // ============================================
-      
-      // Show/hide scroll button based on scroll position
-      window.addEventListener('scroll', () => {
-        const scrollBtn = document.getElementById('scrollToTop');
-        if (window.pageYOffset > 300) {
-          scrollBtn.classList.add('visible');
-        } else {
-          scrollBtn.classList.remove('visible');
-        }
-      });
-      
-      // Scroll to top when button clicked
-      document.getElementById('scrollToTop').addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      
+
+    // Show/hide scroll button based on scroll position
+    window.addEventListener('scroll', () => {
+      const scrollBtn = document.getElementById('scrollToTopBtn');
+      if (!scrollBtn) return;
+
+      if (window.pageYOffset > 300) {
+        scrollBtn.classList.add('visible');
+      } else {
+        scrollBtn.classList.remove('visible');
+      }
+    });
+
+    // Scroll to top when button clicked
+    document.getElementById('scrollToTopBtn').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+     
       // ============================================
       // Contact Form Submission
       // ============================================
