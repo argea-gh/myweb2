@@ -213,33 +213,56 @@ body {
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
     
-    .scroll-to-top {
-      position: fixed;
-      bottom: 100px;
-      right: 30px;
-      background: #16a34a;
-      color: white;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      z-index: 9999;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      opacity: 0;
-    }
-    
-    .scroll-to-top.visible {
-      display: block;
-      opacity: 1;
-    }
-    
-    .scroll-to-top:hover {
-      transform: scale(1.1);
-    }
-    
+    /* Scroll-to-top modern button */
+  .scroll-to-top {
+  position: fixed;
+  bottom: 40px;
+  right: 28px;
+  width: 52px;
+  height: 52px;
+  background: #16a34a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: 
+      opacity 0.35s ease,
+      transform 0.35s ease,
+      box-shadow 0.3s ease,
+      background 0.3s ease;
+  z-index: 9999;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+}
+
+ /* Visible state */
+ .scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Hover effect */
+.scroll-to-top:hover {
+  background: #15803d;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+  transform: translateY(-4px);
+}
+
+/* SVG fix – pastikan tepat di tengah */
+.scroll-to-top svg {
+  width: 26px;
+  height: 26px;
+  stroke-width: 2.5;
+}
+
     .floating-cart-mobile {
       display: none;
     }
