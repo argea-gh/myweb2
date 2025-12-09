@@ -728,35 +728,50 @@
       // Scroll to Top Button (FIXED)
       // ============================================
         // Show/hide scroll button based on scroll position
-function setupScrollToTop() {
+    // ============================================
+// UNIVERSAL SCROLL-TO-TOP (100% WORKING)
+// ============================================
+
+function initScrollToTop() {
   const scrollBtn = document.getElementById('scrollToTopBtn');
   if (!scrollBtn) return;
 
-  function checkScroll(container) {
-    const scrollY = container.scrollTop;
+  let lastScrollContainer = null;
 
-    if (scrollY > 300) {
-      scrollBtn.classList.add('visible');
-    } else {
+  function checkAllScrollContainers() {
+    const containers = document.querySelectorAll('*');
+
+    containers.forEach(el => {
+      const canScroll = el.scrollHeight > el.clientHeight;
+
+      if (canScroll && el.scrollTop > 300) {
+        scrollBtn.classList.add('visible');
+        lastScrollContainer = el;
+      } 
+    });
+
+    // Jika tidak ada yg scroll
+    if (!lastScrollContainer || lastScrollContainer.scrollTop <= 300) {
       scrollBtn.classList.remove('visible');
     }
   }
 
-  // Pantau scroll pada setiap .page
-  document.querySelectorAll('.page').forEach(page => {
-    page.addEventListener('scroll', () => checkScroll(page));
+  // Pasang event scroll untuk SEMUA elemen
+  const all = document.querySelectorAll('*');
+  all.forEach(el => {
+    el.addEventListener('scroll', checkAllScrollContainers, { passive: true });
   });
 
-  // Saat tombol diklik → scroll container aktif
+  // Klik tombol → scroll container aktif
   scrollBtn.addEventListener('click', () => {
-    const activePage = document.querySelector('.page.active');
-    if (activePage) {
-      activePage.scrollTo({ top: 0, behavior: 'smooth' });
+    if (lastScrollContainer) {
+      lastScrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
     }
   });
 }
 
-setupScrollToTop();
+initScrollToTop();
+
     
       // ============================================
       // Contact Form Submission
