@@ -192,8 +192,8 @@ body {
 
 .floating-whatsapp {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 20px;
+      right: 20px;
       background: #25D366;
       color: white;
       width: 60px;
@@ -216,10 +216,10 @@ body {
     /* Scroll-to-top modern button */
   .scroll-to-top {
   position: fixed;
-  bottom: 40px;
-  right: 28px;
-  width: 52px;
-  height: 52px;
+  bottom: 70px;
+  right: 30px;
+  width: 55px;
+  height: 55px;
   background: #16a34a;
   color: white;
   border-radius: 50%;
