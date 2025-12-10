@@ -725,10 +725,10 @@
       document.getElementById('checkoutWhatsApp').addEventListener('click', checkoutWhatsApp);
       
     // ============================================
-    // UNIVERSAL SCROLL-TO-TOP — FIX SPA + FOOTER
+    // FINAL UNIVERSAL SCROLL-TO-TOP
     // ============================================
 
-    function initScrollToTop() {
+    function initScrollToTop_Final() {
       const scrollBtn = document.getElementById("scrollToTopBtn");
       if (!scrollBtn) return;
 
@@ -736,47 +736,67 @@
         return document.querySelector(".page.active");
       }
 
+      function isPageScrolling() {
+        const activePage = getActivePage();
+        if (!activePage) return false;
+
+        // Jika konten dalam .page lebih tinggi daripada tinggi .page
+        return activePage.scrollHeight > activePage.clientHeight;
+      }
+
       function checkScroll() {
         const activePage = getActivePage();
+
         const pageScroll = activePage ? activePage.scrollTop : 0;
         const windowScroll = window.scrollY || document.documentElement.scrollTop;
 
-    // Munculkan tombol jika salah satu scroll > 300
-    if (pageScroll > 300 || windowScroll > 300) {
-      scrollBtn.classList.add("visible");
+        // Jika user berada di area footer → window yang scroll
+        if (!isPageScrolling() || activePage.classList.contains("no-scroll")) {
+          if (windowScroll > 300) {
+            scrollBtn.classList.add("visible");
+          } else {
+            scrollBtn.classList.remove("visible");
+          }
+          return;
+        }
+
+        // Jika user berada dalam SPA (.page)
+        if (pageScroll > 300) {
+          scrollBtn.classList.add("visible");
         } else {
           scrollBtn.classList.remove("visible");
         }
       }
 
-      // Listener untuk scroll window
+      // Listener scroll window (untuk footer)
       window.addEventListener("scroll", checkScroll, { passive: true });
 
-      // Listener untuk scroll pada .page
+      // Listener scroll .page
       document.querySelectorAll(".page").forEach(page => {
         page.addEventListener("scroll", checkScroll, { passive: true });
       });
 
-      // Scroll ke atas (universal)
+      // Tombol diklik → scroll ke atas
       scrollBtn.addEventListener("click", () => {
         const activePage = getActivePage();
         const pageScroll = activePage ? activePage.scrollTop : 0;
         const windowScroll = window.scrollY || document.documentElement.scrollTop;
 
-        // Jika halaman aktif yang scroll
-        if (pageScroll > 0) {
+        // Jika user sedang berada dalam SPA
+        if (activePage && pageScroll > 0 && isPageScrolling()) {
           activePage.scrollTo({ top: 0, behavior: "smooth" });
+          return;
         }
 
-        // Jika window yang scroll
+        // Jika user berada di footer
         if (windowScroll > 0) {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
       });
     }
 
-    initScrollToTop();
-    
+    initScrollToTop_Final();
+   
       // ============================================
       // Contact Form Submission
       // ============================================
