@@ -724,53 +724,58 @@
       // Checkout via WhatsApp with all cart items
       document.getElementById('checkoutWhatsApp').addEventListener('click', checkoutWhatsApp);
       
-      // ============================================
-      // Scroll to Top Button (FIXED)
-      // ============================================
-        // Show/hide scroll button based on scroll position
-// ============================================
-// SCROLL TO TOP FIX UNTUK WEBSITE SPA ANDA
-// ============================================
+    // ============================================
+    // UNIVERSAL SCROLL-TO-TOP — FIX SPA + FOOTER
+    // ============================================
 
-function initScrollToTopSPA() {
-  const scrollBtn = document.getElementById("scrollToTopBtn");
-  if (!scrollBtn) return;
+    function initScrollToTop() {
+      const scrollBtn = document.getElementById("scrollToTopBtn");
+      if (!scrollBtn) return;
 
-  function getActivePage() {
-    return document.querySelector(".page.active");
-  }
+      function getActivePage() {
+        return document.querySelector(".page.active");
+      }
 
-  // DETEKSI SCROLL PADA .page.active
-  function updateScrollButton() {
-    const activePage = getActivePage();
-    if (!activePage) return;
+      function checkScroll() {
+        const activePage = getActivePage();
+        const pageScroll = activePage ? activePage.scrollTop : 0;
+        const windowScroll = window.scrollY || document.documentElement.scrollTop;
 
-    const scrollY = activePage.scrollTop;
-
-    if (scrollY > 300) {
+    // Munculkan tombol jika salah satu scroll > 300
+    if (pageScroll > 300 || windowScroll > 300) {
       scrollBtn.classList.add("visible");
-    } else {
-      scrollBtn.classList.remove("visible");
+        } else {
+          scrollBtn.classList.remove("visible");
+        }
+      }
+
+      // Listener untuk scroll window
+      window.addEventListener("scroll", checkScroll, { passive: true });
+
+      // Listener untuk scroll pada .page
+      document.querySelectorAll(".page").forEach(page => {
+        page.addEventListener("scroll", checkScroll, { passive: true });
+      });
+
+      // Scroll ke atas (universal)
+      scrollBtn.addEventListener("click", () => {
+        const activePage = getActivePage();
+        const pageScroll = activePage ? activePage.scrollTop : 0;
+        const windowScroll = window.scrollY || document.documentElement.scrollTop;
+
+        // Jika halaman aktif yang scroll
+        if (pageScroll > 0) {
+          activePage.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        // Jika window yang scroll
+        if (windowScroll > 0) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
     }
-  }
 
-  // Pasang event scroll ke semua .page
-  document.querySelectorAll(".page").forEach(page => {
-    page.addEventListener("scroll", updateScrollButton, { passive: true });
-  });
-
-  // Scroll ke atas halaman aktif
-  scrollBtn.addEventListener("click", () => {
-    const activePage = getActivePage();
-    if (!activePage) return;
-
-    activePage.scrollTo({ top: 0, behavior: "smooth" });
-  });
-}
-
-initScrollToTopSPA();
-
-
+    initScrollToTop();
     
       // ============================================
       // Contact Form Submission
